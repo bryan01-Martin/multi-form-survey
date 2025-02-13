@@ -27,7 +27,6 @@ export function TabList({ children }: PropsWithChildren) {
 
 export function Tab({ children, index }: PropsWithChildren<{ index: number }>) {
   const { activeTab, setActiveTab } = useContext(TabContext);
-
   return (
     <button
       className={cn("border-b-3 p-14", {
