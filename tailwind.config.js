@@ -12,7 +12,13 @@ export default {
       borderWidth: {
         ...px0_20,
       },
+      borderRadius: {
+        ...px0_20,
+      },
       spacing: {
+        ...px0_200,
+      },
+      fontSize: {
         ...px0_200,
       },
       colors: colors,
