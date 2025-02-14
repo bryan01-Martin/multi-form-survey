@@ -1,4 +1,8 @@
 import "./App.css";
+import Dropdown, {
+  DropdownButton,
+  DropdownMenu,
+} from "./components/common/Dropdown";
 import MainLayout from "./components/common/MainLayout";
 import Panel, {
   PanelBody,
@@ -12,6 +16,7 @@ import Tabs, {
   TabPanel,
   TabPanels,
 } from "./components/common/Tabs";
+import QuestionEditor from "./components/edit/QuestionEditor";
 
 function App() {
   return (
@@ -23,14 +28,11 @@ function App() {
         </TabList>
         <TabPanels>
           <TabPanel index={0}>
-            <PanelCap>cap</PanelCap>
             <Panel>
-              <PanelHeader>header</PanelHeader>
-              <PanelBody>body</PanelBody>
-              <PanelFooter>footer</PanelFooter>
+              <QuestionEditor />
             </Panel>
           </TabPanel>
-          <TabPanel index={1}>content2</TabPanel>
+          <TabPanel index={1}>panel2</TabPanel>
         </TabPanels>
       </Tabs>
     </MainLayout>
