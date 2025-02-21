@@ -12,17 +12,23 @@ import ArrowIcon from "../../assets/icons/arrow_drop_down.svg?react";
 import useOutsideClick from "../../hooks/common/useOutsideClick";
 
 interface DropdownProps<T> {
+  defaultValue?: T;
   placeholder?: string;
   options: DropdownOption<T>[];
   onChange: (value: T) => void;
 }
 export default function Dropdown<T>({
+  defaultValue,
   placeholder,
   options,
   onChange,
 }: PropsWithChildren<DropdownProps<T>>) {
   const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState(
+    defaultValue
+      ? options.findIndex((option) => option.value === defaultValue)
+      : -1
+  );
 
   const open = useCallback(() => setOpened(true), []);
   const close = useCallback(() => setOpened(false), []);
@@ -91,7 +97,7 @@ function DropdownMenu() {
   return opened ? (
     <div
       ref={containerRef as RefObject<HTMLDivElement>}
-      className="absolute left-0 top-62 border border-gray300 rounded-10 bg-white flex flex-col min-w-197"
+      className="absolute left-0 top-62 border border-gray300 rounded-10 bg-white flex flex-col min-w-197 z-10"
     >
       {options.map((option, index) => (
         <DropdownMenuItem

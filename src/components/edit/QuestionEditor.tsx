@@ -11,17 +11,22 @@ import DropdownIcon from "../../assets/icons/arrow_circle_down.svg?react";
 import DateIcon from "../../assets/icons/calendar_today.svg?react";
 import TimeIcon from "../../assets/icons/schedule.svg?react";
 import QuestionBodyEditor from "./QuestionBodyEditor";
-import { useState } from "react";
+import Question from "../../models/question";
+import { observer } from "mobx-react-lite";
 
-export default function QuestionEditor() {
-  const [type, setType] = useState<QuestionType>("shortText");
+interface Props {
+  question: Question;
+}
+
+function QuestionEditor({ question }: Props) {
   return (
     <Panel>
       <PanelHeader className="fle mb-25">
         <Input className="flex-1 mr-30" />
         <Dropdown<QuestionType>
+          defaultValue={question.type}
           onChange={(value) => {
-            setType(value);
+            question.setType(value);
           }}
           options={[
             {
@@ -36,7 +41,7 @@ export default function QuestionEditor() {
             {
               label: (
                 <div>
-                  <LongText />
+                  <LongText className="inline-block mr-10" />
                   <span>장문형</span>
                 </div>
               ),
@@ -91,8 +96,10 @@ export default function QuestionEditor() {
         />
       </PanelHeader>
       <PanelBody>
-        <QuestionBodyEditor type={type} />
+        <QuestionBodyEditor type={question.type} />
       </PanelBody>
     </Panel>
   );
 }
+
+export default observer(QuestionEditor);

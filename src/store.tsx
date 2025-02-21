@@ -1,25 +1,40 @@
-import { makeAutoObservable } from "mobx/dist/api/makeObservable";
-import Question from "./models/question";
+import { makeAutoObservable } from "mobx";
+import { createContext, PropsWithChildren, useContext } from "react";
+import Section from "./models/sections";
 
-class Store {
-  questions: Question[] = [];
+class SurveyStore {
+  sections: Section[] = [];
+  focusedSectionId: number | null = null;
 
   constructor() {
     makeAutoObservable(this);
+    this.sections = [new Section()];
+    this.focusedSectionId = this.sections[0].id;
+  }
+
+  addSection() {
+    const section = new Section();
+    this.sections.push(section);
+    this.focusedSectionId = section.id;
   }
 
   addQuestion() {
-    this.questions.push(new Question());
-  }
+    const section = this.sections.find(
+      (section) => section.id === this.focusedSectionId
+    );
 
-  removeQuestion(id: number) {
-    this.questions = this.questions.filter((question) => question.id !== id);
-  }
-
-  copyQuestion(id: number) {
-    const question = this.questions.find((question) => question.id === id);
-    if (question) {
-      this.questions.push(new Question({ ...question, id: Date.now() }));
+    if (section) {
+      section.addQuestion();
     }
   }
 }
+
+const surveyStore = new SurveyStore();
+const surveyStoreContext = createContext(surveyStore);
+
+export const useSurveyStore = () => useContext(surveyStoreContext);
+export const SurveyStoreProvider = ({ children }: PropsWithChildren) => (
+  <surveyStoreContext.Provider value={surveyStore}>
+    {children}
+  </surveyStoreContext.Provider>
+);
