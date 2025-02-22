@@ -22,9 +22,7 @@ function App() {
           </TabList>
           <TabPanels>
             <TabPanel index={0}>
-              <Panel>
-                <SectionEditorList />
-              </Panel>
+              <SectionEditorList />
             </TabPanel>
             <TabPanel index={1}>panel2</TabPanel>
           </TabPanels>
