@@ -5,11 +5,13 @@ import callApi from "./utils/api";
 import sections from "./models/sections";
 
 class SurveyStore {
+  emailCollected: boolean;
   sections: Section[] = [];
   focusedSectionId: number | null = null;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
+    this.emailCollected = false;
     this.sections = [new Section()];
     this.focusedSectionId = this.sections[0].id;
   }
@@ -34,11 +36,13 @@ class SurveyStore {
   }
 
   fetchSurvey(id: number) {
-    callApi<{ sections: SectionData[] }>(`/surveys/${id}`, {}).then(
-      ({ sections }) => {
-        this.sections = sections.map((section) => new Section(section));
-      }
-    );
+    callApi<{ sections: SectionData[]; emailCollected: boolean }>(
+      `/surveys/${id}`,
+      {}
+    ).then(({ sections, emailCollected }) => {
+      this.sections = sections.map((section) => new Section(section));
+      this.emailCollected = emailCollected ?? false;
+    });
   }
 }
 
