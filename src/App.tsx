@@ -1,34 +1,24 @@
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
 import MainLayout from "./components/common/MainLayout";
-import Panel from "./components/common/Panel";
-import Tabs, {
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-} from "./components/common/Tabs";
-import SectionEditor from "./components/edit/SectionEditor";
 import SectionEditorList from "./components/edit/SectionEditorList";
 import { SurveyStoreProvider } from "./store";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
-    <MainLayout>
-      <SurveyStoreProvider>
-        <Tabs>
-          <TabList>
-            <Tab index={0}>tab1</Tab>
-            <Tab index={1}>tab2</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel index={0}>
-              <SectionEditorList />
-            </TabPanel>
-            <TabPanel index={1}>panel2</TabPanel>
-          </TabPanels>
-        </Tabs>
-      </SurveyStoreProvider>
-    </MainLayout>
+    <BrowserRouter>
+      <MainLayout>
+        <SurveyStoreProvider>
+          <Routes>
+            <Route path="/surveys/:surveyId" element={<AdminPage />}>
+              <Route path="edit" element={<SectionEditorList />} />
+              <Route path="responses" element={<div>응답</div>} />
+            </Route>
+          </Routes>
+        </SurveyStoreProvider>
+      </MainLayout>
+    </BrowserRouter>
   );
 }
 

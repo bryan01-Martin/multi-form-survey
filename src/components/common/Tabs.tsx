@@ -25,21 +25,6 @@ export function TabList({ children }: PropsWithChildren) {
   return <div className="flex gap-x-20 justify-center">{children}</div>;
 }
 
-export function Tab({ children, index }: PropsWithChildren<{ index: number }>) {
-  const { activeTab, setActiveTab } = useContext(TabContext);
-  return (
-    <button
-      className={cn("border-b-3 p-14", {
-        "text-main border-main": activeTab === index,
-        "border-transparent text-gray-500": activeTab !== index,
-      })}
-      onClick={() => setActiveTab(index)}
-    >
-      {children}
-    </button>
-  );
-}
-
 export function TabPanels({ children }: PropsWithChildren) {
   return <div className="flex-1">{children}</div>;
 }
