@@ -5,11 +5,17 @@ import SectionTitleEditor from "./SectionTitleEditor";
 
 interface Props {
   section: Section;
+  capTitle: string;
+  onChangeFocus: (id: number) => void;
 }
-function SectionEditor({ section }: Props) {
+function SectionEditor({ section, capTitle, onChangeFocus }: Props) {
+  const handleClickContainer = () => {
+    onChangeFocus(section.id);
+  };
+
   return (
-    <div className={"[&>*]:mb-24"}>
-      <SectionTitleEditor capTitle={"2개 중 1번째"} section={section} />
+    <div className={"[&>*]:mb-24"} onClick={handleClickContainer}>
+      <SectionTitleEditor capTitle={capTitle} section={section} />
       {section.questions.map((question) => (
         <QuestionEditor
           key={question.id}
