@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import Question from "./question";
 
-type SectionData = {
+export type SectionData = {
   id: number;
   title: string;
   description: string;
@@ -25,8 +25,8 @@ export default class Section implements SectionData {
     makeAutoObservable(this, {}, { autoBind: true });
     this.id = data.id;
     this.title = data.title;
-    this.description = "";
-    this.questions = data.questions;
+    this.description = data.description;
+    this.questions = data.questions.map((question) => new Question(question));
   }
 
   setTitle(title: string) {

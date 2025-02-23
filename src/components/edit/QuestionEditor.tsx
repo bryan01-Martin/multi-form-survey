@@ -21,7 +21,11 @@ function QuestionEditor({ question, onCopy, onDelete }: Props) {
   return (
     <Panel className="border-l-10 border-l-transparent focus-within:border-l-main">
       <PanelHeader className="fle mb-25">
-        <Input className="flex-1 mr-30" />
+        <Input
+          className="flex-1 mr-30"
+          value={question.title}
+          onChange={(e) => question.setTitle(e.currentTarget.value)}
+        />
         <QuestionTypeEditor type={question.type} onChange={question.setType} />
       </PanelHeader>
       <PanelBody>
