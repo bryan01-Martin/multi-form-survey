@@ -10,6 +10,7 @@ export default function CreatePage() {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
+    debugger;
     callApi<{ id: number }>("/surveys", {
       method: "POST",
       body: toJS({ sections: surveyStore.sections }),
